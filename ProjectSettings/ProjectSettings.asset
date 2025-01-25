@@ -259,7 +259,7 @@ PlayerSettings:
   clonedFromGUID: 3c72c65a16f0acb438eed22b8b16c24a
   templatePackageId: com.unity.template.urp-blank@14.0.0
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  useCustomMainManifest: 0
+  useCustomMainManifest: 1
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 0
   useCustomLauncherGradleManifest: 0
@@ -821,8 +821,23 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: ISDK_OPENXR_HAND;FUSION_WEAVER;FUSION2;FUSION_LOGLEVEL_INFO
-    Standalone: ISDK_OPENXR_HAND;FUSION_LOGLEVEL_INFO;FUSION_WEAVER;FUSION2
+    Android: ISDK_OPENXR_HAND;FUSION_WEAVER;FUSION2;FUSION_LOGLEVEL_INFO;XRSHARED_ADDON_AVAILABLE;PHOTON_FUSION_PHYSICS_ADDON_DEFINED;OCULUS_SDK_AVAILABLE;OCULUS_INTERACTION_SDK_AVAILABLE
+    EmbeddedLinux: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    GameCoreScarlett: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    GameCoreXboxOne: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    LinuxHeadlessSimulation: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    Nintendo Switch: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    PS4: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    PS5: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    QNX: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    Stadia: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    Standalone: ISDK_OPENXR_HAND;FUSION_LOGLEVEL_INFO;FUSION_WEAVER;FUSION2;PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    VisionOS: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    WebGL: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    Windows Store Apps: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    XboxOne: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    iPhone: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
+    tvOS: PHOTON_FUSION_PHYSICS_ADDON_DEFINED
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -930,7 +945,7 @@ PlayerSettings:
   hmiLogStartupTiming: 0
   hmiCpuConfiguration: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 0
+  activeInputHandler: 1
   windowsGamepadBackendHint: 0
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0
