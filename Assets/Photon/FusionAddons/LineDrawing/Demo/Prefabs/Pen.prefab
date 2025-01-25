@@ -60,6 +60,7 @@ MonoBehaviour:
   - {fileID: 5231036783828769728}
   - {fileID: 1428540449395169378}
   - {fileID: 6515516757671641326}
+  ForceRemoteRenderTimeframe: 0
 --- !u!114 &2419121163217286282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0.15
   SyncScale: 0
   SyncParent: 0
   _autoAOIOverride: 1
@@ -145,10 +147,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9dae3322f2330a478d06106e4334dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawingPrefab: {fileID: 1078020606159627138, guid: 112e0f018f39dc54ea1b620e56307e1d, type: 3}
+  drawingPrefab: {fileID: 1078020606159627138, guid: 112e0f018f39dc54ea1b620e56307e1d,
+    type: 3}
   tip: {fileID: 5914120599345534762}
   minimalDrawingDistance: 0.001
-  _CurrentColor: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0, g: 0, b: 0, a: 1}
+  leftTriggerAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Left Trigger
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 047878ad-aba1-4a15-960c-04d4e4dcf2b8
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  rightTriggerAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Right Trigger
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: c8b79b6c-00af-4f2c-b3ea-15d9f32f6dae
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  audioType: 
+  hapticAmplitudeFactor: 0.1
+  feedbackMode: 3
 --- !u!114 &6515516757671641326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +199,6 @@ MonoBehaviour:
   - {r: 0.1764706, g: 0.6117647, b: 1, a: 1}
   - {r: 1, g: 0.9647059, b: 0.29803923, a: 1}
   changeColorCoolDown: 1
-  ColorChanged: OnMenuItemSelected
   useInput: 1
   grabbable: {fileID: 0}
   leftControllerChangeColorAction:
@@ -197,6 +226,10 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 0}
   changeColorInputThreshold: 0.5
+  automaticallyFillEmptyRenderersList: 1
+  coloredRenderers: []
+  audioType: 
+  feedbackMode: 3
 --- !u!1 &7478544134684036631
 GameObject:
   m_ObjectHideFlags: 0

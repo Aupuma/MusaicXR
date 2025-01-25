@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/ColocationV3.unity
+    guid: 3b4ebfabc14e53a48b8959765beb8a69
+  - enabled: 0
     path: Assets/Scenes/ColocationV2.unity
     guid: e095881913ce2aa4293d88edba87b259
   - enabled: 0
