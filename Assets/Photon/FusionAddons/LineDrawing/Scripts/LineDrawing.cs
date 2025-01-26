@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Fusion.Addons.LineDrawing
 {
@@ -10,12 +9,11 @@ namespace Fusion.Addons.LineDrawing
         public float maxWidth = 0.01f;
         public Material lineMaterial;
 
-        LineRenderer currentLine;
+        public LineRenderer currentLine { get; private set; }
         [SerializeField] List<Vector3> drawingPoints = new List<Vector3>();
         List<float> drawingPressures = new List<float>();
         List<float> drawingPathLength = new List<float>();
         Vector3 lastPoint;
-
 
         protected LineRenderer CreateLine(Color color)
         {
@@ -35,11 +33,20 @@ namespace Fusion.Addons.LineDrawing
                 lineGO.transform.parent = transform;
                 line = lineGO.AddComponent<LineRenderer>();
             }
+
             line.useWorldSpace = false;
             line.startWidth = maxWidth;
             line.endWidth = maxWidth;
             line.widthMultiplier = maxWidth;
-            if (lineMaterial != null) line.sharedMaterial = lineMaterial;
+
+            // Create new material instance and set its color
+            if (lineMaterial != null)
+            {
+                Material newMaterial = new Material(lineMaterial);
+                newMaterial.SetColor("_BaseColor", color);
+                line.material = newMaterial;
+            }
+
             line.transform.position = transform.position;
             line.transform.rotation = transform.rotation;
             line.startColor = color;
@@ -60,6 +67,16 @@ namespace Fusion.Addons.LineDrawing
         public void StopLine()
         {
             currentLine = null;
+        }
+
+        public void UpdateLineColor(Color color)
+        {
+            if (currentLine != null && currentLine.material != null)
+            {
+                currentLine.startColor = color;
+                currentLine.endColor = color;
+                currentLine.material.SetColor("_BaseColor", color);
+            }
         }
 
         public void AddPoint(Vector3 localPosition, float pressure)
@@ -88,10 +105,9 @@ namespace Fusion.Addons.LineDrawing
                 {
                     if (index < drawingPressures.Count)
                     {
-                        widthCurve.AddKey(length / total, drawingPressures[index]); ;
+                        widthCurve.AddKey(length / total, drawingPressures[index]);
                     }
                     index++;
-
                 }
                 currentLine.widthCurve = widthCurve;
             }

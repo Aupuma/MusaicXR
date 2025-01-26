@@ -79,11 +79,11 @@ namespace Fusion.Addons.LineDrawing
             // Update the indicator sphere color
             if (colorIndicatorSphere != null)
             {
-                // Create an emissive material using URP lit shader
-                Material indicatorMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+                // Create material using the OcclusionUnlit shader
+                Material indicatorMaterial = new Material(Shader.Find("EnvironmentDepth/URP/OcclusionUnlit"));
                 indicatorMaterial.SetColor("_BaseColor", color);
-                indicatorMaterial.SetColor("_EmissionColor", color * 0.5f);
-                indicatorMaterial.EnableKeyword("_EMISSION");
+                // Enable soft occlusion for better blending with the environment
+                indicatorMaterial.EnableKeyword("SOFT_OCCLUSION");
                 colorIndicatorSphere.material = indicatorMaterial;
             }
         }

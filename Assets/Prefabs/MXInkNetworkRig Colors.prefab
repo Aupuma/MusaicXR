@@ -310,6 +310,12 @@ PrefabInstance:
       propertyPath: tip
       value: 
       objectReference: {fileID: 834165828135744784}
+    - target: {fileID: 3954185949076504963, guid: eb7c992aa5f0d09498c8317106a9b389,
+        type: 3}
+      propertyPath: drawingPrefab
+      value: 
+      objectReference: {fileID: 1078020606159627138, guid: dd442cca92434bd48a716377d27532e8,
+        type: 3}
     - target: {fileID: 4309360890268530958, guid: eb7c992aa5f0d09498c8317106a9b389,
         type: 3}
       propertyPath: m_Name
