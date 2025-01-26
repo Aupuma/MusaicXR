@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6e8c4898b94242a5ebcb54666ba88, type: 3}
   m_Name: MusicLineType3
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 1, a: 1}
+  color: {r: 1, g: 0.9019608, b: 0, a: 1}
   clipId: Track11
   baseVolume: 1
   maxVolume: 2

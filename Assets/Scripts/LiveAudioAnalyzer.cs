@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Fusion.Addons.LineDrawing;
 using System.Linq;
+using System;
 
 public class LiveAudioAnalyzer : MonoBehaviour
 {
@@ -83,29 +84,40 @@ public class LiveAudioAnalyzer : MonoBehaviour
     }
 
     void AnalyzeLines()
+{
+    if (!isInitialized) return;
+
+    var allDrawings = FindObjectsOfType<NetworkLineDrawing>();
+    Dictionary<Color, List<Vector3>> pointsInSliceByColor = new Dictionary<Color, List<Vector3>>();
+
+    // Initialize debug info for all colors
+    foreach (var lineType in lineTypes)
     {
-        if (!isInitialized) return;
-
-        var allDrawings = FindObjectsOfType<NetworkLineDrawing>();
-        Dictionary<Color, List<Vector3>> pointsInSliceByColor = new Dictionary<Color, List<Vector3>>();
-
-        // Initialize debug info for all colors
-        foreach (var lineType in lineTypes)
+        if (lineType.type != null)
         {
-            if (lineType.type != null)
-            {
-                Color color = lineType.type.color;
-                if (!debugInfo.ContainsKey(color))
-                    debugInfo[color] = new DebugInfo();
-                
-                // Reset values
-                debugInfo[color].pointsInSlice = 0;
-                debugInfo[color].distribution = 0f;
-            }
+            Color color = lineType.type.color;
+            if (!debugInfo.ContainsKey(color))
+                debugInfo[color] = new DebugInfo();
+            
+            // Reset values
+            debugInfo[color].pointsInSlice = 0;
+            debugInfo[color].distribution = 0f;
         }
+    }
 
-        foreach (var drawing in allDrawings)
+    foreach (var drawing in allDrawings)
+    {
+        // Check if the network object is properly spawned and valid
+        if (drawing == null || drawing.Object == null || !drawing.Object.IsValid)
+            continue;
+
+        // Check if the object has been properly initialized in the network
+        if (!drawing.Object.IsValid)
+            continue;
+
+        try 
         {
+            // Only process if the drawing is finished
             if (drawing.IsFinished)
             {
                 var lineDrawing = drawing.GetComponent<LineDrawing>();
@@ -125,39 +137,45 @@ public class LiveAudioAnalyzer : MonoBehaviour
                 }
             }
         }
-
-        List<MusicPacket> musicPackets = new List<MusicPacket>();
-
-        // Analyze and trigger events for each color
-        foreach (var kvp in pointsInSliceByColor)
+        catch (InvalidOperationException)
         {
-            Color color = kvp.Key;
-            colorToType.TryGetValue(color, out var audioLineType);
-            var clipId = audioLineType.type.clipId;
-            List<Vector3> points = kvp.Value;
-            float distribution = CalculateDistribution(points);
-
-            // Update debug info (it should exist from initialization above)
-            if (debugInfo.ContainsKey(color))
-            {
-                debugInfo[color].pointsInSlice = points.Count;
-                debugInfo[color].distribution = distribution;
-            }
-
-            var x = Mathf.Clamp(points.Count / xDivisor, 0f, 1f);
-            var y = Mathf.Clamp(distribution / yDivisor, 0f, 1f);
-
-            musicPackets.Add(new MusicPacket{
-                clipID = clipId,
-                parameters = new Dictionary<string, float>{
-                    {"x", x},
-                    {"y", y}
-                }
-            });
+            // Skip this object if we can't access networked properties yet
+            continue;
         }
-        OnSliceAnalyzed?.Invoke(musicPackets);
-
     }
+
+    List<MusicPacket> musicPackets = new List<MusicPacket>();
+
+    // Analyze and trigger events for each color
+    foreach (var kvp in pointsInSliceByColor)
+    {
+        Color color = kvp.Key;
+        colorToType.TryGetValue(color, out var audioLineType);
+        var clipId = audioLineType.type.clipId;
+        List<Vector3> points = kvp.Value;
+        float distribution = CalculateDistribution(points);
+
+        // Update debug info
+        if (debugInfo.ContainsKey(color))
+        {
+            debugInfo[color].pointsInSlice = points.Count;
+            debugInfo[color].distribution = distribution;
+        }
+
+        var x = Mathf.Clamp(points.Count / xDivisor, 0f, 1f);
+        var y = Mathf.Clamp(distribution / yDivisor, 0f, 1f);
+
+        musicPackets.Add(new MusicPacket{
+            clipID = clipId,
+            parameters = new Dictionary<string, float>{
+                {"x", x},
+                {"y", y}
+            }
+        });
+    }
+    
+    OnSliceAnalyzed?.Invoke(musicPackets);
+}
 
     List<Vector3> GetPointsInSlice(LineRenderer line)
     {

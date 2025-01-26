@@ -283,9 +283,9 @@ MonoBehaviour:
   minimalDrawingDistance: 0.001
   color: {r: 0, g: 0, b: 0, a: 1}
   availableColors:
+  - {r: 0, g: 0.7490196, b: 1, a: 1}
   - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0.9019608, b: 0, a: 1}
   colorIndicatorSphere: {fileID: 2027020412757362980}
 --- !u!114 &7914120822311012377
 MonoBehaviour:
