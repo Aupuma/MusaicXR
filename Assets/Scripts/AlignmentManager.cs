@@ -42,7 +42,7 @@ public class AlignmentManager : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-        _centerAnchorTransform.position = new Vector3(0, 0.976f, 0);
+        _centerAnchorTransform.position = new Vector3(0, 1.2f, 0);
         Debug.Log("Colocation: Alignment complete.");
     }
 }

@@ -10,8 +10,8 @@ namespace Fusion.Addons.MXPenIntegration {
         
         [Header("Vacuum Settings")]
         [SerializeField] private Renderer vacuumRenderer;
-        [SerializeField] private float vacuumRadius = 0.1f;
-        [SerializeField] private float vacuumDistance = 1.0f;
+        [SerializeField] private float vacuumRadius = 0.2f;
+        [SerializeField] private float vacuumDistance = 1.5f;
 
         protected override void Awake()
         {
