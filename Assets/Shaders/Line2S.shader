@@ -139,7 +139,8 @@ Shader "Brush/Line2S"
                 float w3 = wave(i.uv, _Time.y, 0.5, 0.15, -0.2, 400.0, 2.0);
                 float4 colour = float4(w1, w2, w3, w1 + w2 + w3);
 
-                colour.a *= mask_hard;
+                colour.rgb += (abs(mask_soft) * 0.5);
+                // colour.a *= mask_hard;
                 return colour;
 
             }

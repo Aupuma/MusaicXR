@@ -127,8 +127,9 @@ Shader "Brush/Line1S"
                 float dotted_line = plateau2d(uv_stretch, 0.1, 0.2);
                 float4 colour = hsl_to_rgb(floor(i.uv.x / _DotLength) / 10.0, 1.0, 0.5);
                 colour.a = dotted_line;
-                
-                colour.a *= mask_hard;
+
+                colour.rgb += (abs(mask_soft) * 0.5);
+                // colour.a *= mask_hard;
                 return colour;
 
             }

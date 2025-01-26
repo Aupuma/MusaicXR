@@ -158,7 +158,8 @@ Shader "Brush/Line3S"
                 float4 colour = _BaseColour * a;
 
 
-                colour.a *= mask_hard;
+                colour.rgb += (abs(mask_soft) * 0.5);
+                // colour.a *= mask_hard;
                 return colour;
 
             }
