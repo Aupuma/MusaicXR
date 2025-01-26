@@ -143,6 +143,16 @@ namespace Fusion.Addons.MXPenIntegration {
                 }
             }
 
+            // Automatically stop the drawing if no more points are added
+            if (pressure == 0)
+            {
+                networkLineDrawer.StopDrawing();
+                if (feedback != null)
+                {
+                    feedback.StopAudioFeeback();
+                }
+            }
+
             // Stop drawing causes
             bool shouldStopCurrentDrawing = ShouldStopCurrentVolumeDrawing();
             if (pressure == 0 && shouldStopCurrentDrawing)

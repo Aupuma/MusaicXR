@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6633952045544295856}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 1479408792286961269}
   - component: {fileID: 3862511135599592850}
   m_Layer: 0
-  m_Name: Drawing Depth
+  m_Name: Drawing Network Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
