@@ -4,6 +4,7 @@ using System.Collections;
 public class AlignmentManager : MonoBehaviour
 {
     private Transform _cameraRigTransform;
+    [SerializeField] Transform _centerAnchorTransform;
 
     private void Awake()
     {
@@ -41,7 +42,7 @@ public class AlignmentManager : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-
+        _centerAnchorTransform.position = new Vector3(0, 0.976f, 0);
         Debug.Log("Colocation: Alignment complete.");
     }
 }

@@ -35,6 +35,11 @@ public class LiveAudioAnalyzer : MonoBehaviour
     private Dictionary<Color, AudioLineType> colorToType;
     private bool isInitialized = false;
 
+    public float CurrentSliceAngle => currentSliceAngle;
+    public float CurrentSliceWidth => currentSliceWidth;
+    public float CylinderRadius => cylinderRadius;
+    public float CylinderHeight => cylinderHeight;
+
     private class DebugInfo
     {
         public int pointsInSlice;
