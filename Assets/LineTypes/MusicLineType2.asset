@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MusicLineType2
   m_EditorClassIdentifier: 
   color: {r: 0, g: 1, b: 0, a: 1}
-  audioLoop: {fileID: 0}
+  clipId: Track9
   baseVolume: 1
   maxVolume: 2
   baseReverb: 0

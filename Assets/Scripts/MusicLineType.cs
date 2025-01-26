@@ -4,7 +4,7 @@ using UnityEngine;
 public class MusicLineType : ScriptableObject
 {
     public Color color; // Match with ColorCyclingLineDrawer colors
-    public AudioClip audioLoop;
+    public string clipId;
     [Range(0f, 2f)] public float baseVolume = 1f;
     [Range(0f, 3f)] public float maxVolume = 2f;
     [Range(0f, 1f)] public float baseReverb = 0f;

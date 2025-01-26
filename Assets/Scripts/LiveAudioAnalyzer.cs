@@ -12,7 +12,7 @@ public class LiveAudioAnalyzer : MonoBehaviour
     }
 
     // Event that will be triggered when slice analysis is complete
-    public delegate void SliceAnalyzedHandler(Color lineType, int pointCount, float distribution);
+    public delegate void SliceAnalyzedHandler(List<MusicPacket> musicPackets);
     public event SliceAnalyzedHandler OnSliceAnalyzed;
 
     [Header("Line Types Setup")]
@@ -20,7 +20,9 @@ public class LiveAudioAnalyzer : MonoBehaviour
 
     [Header("Slice Settings")]
     public float cylinderHeight = 2f;     
-    public float cylinderRadius = 5f;     
+    public float cylinderRadius = 5f;  
+    public float xDivisor = 10f;
+    public float yDivisor = 1f;   
 
     [Header("Debug")]
     public bool showDebugGizmos = false;
@@ -124,10 +126,14 @@ public class LiveAudioAnalyzer : MonoBehaviour
             }
         }
 
+        List<MusicPacket> musicPackets = new List<MusicPacket>();
+
         // Analyze and trigger events for each color
         foreach (var kvp in pointsInSliceByColor)
         {
             Color color = kvp.Key;
+            colorToType.TryGetValue(color, out var audioLineType);
+            var clipId = audioLineType.type.clipId;
             List<Vector3> points = kvp.Value;
             float distribution = CalculateDistribution(points);
 
@@ -138,9 +144,19 @@ public class LiveAudioAnalyzer : MonoBehaviour
                 debugInfo[color].distribution = distribution;
             }
 
-            // Trigger event
-            OnSliceAnalyzed?.Invoke(color, points.Count, distribution);
+            var x = Mathf.Clamp(points.Count / xDivisor, 0f, 1f);
+            var y = Mathf.Clamp(distribution / yDivisor, 0f, 1f);
+
+            musicPackets.Add(new MusicPacket{
+                clipID = clipId,
+                parameters = new Dictionary<string, float>{
+                    {"x", x},
+                    {"y", y}
+                }
+            });
         }
+        OnSliceAnalyzed?.Invoke(musicPackets);
+
     }
 
     List<Vector3> GetPointsInSlice(LineRenderer line)
